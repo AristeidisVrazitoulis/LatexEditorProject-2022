@@ -25,7 +25,7 @@ class CommandsTest {
 	
 	private static DocumentManager documentManager;
 	private static VersionsManager versionsManager;
-	private static LatexEditorView editorView;
+	private static LatexEditorView editorView=LatexEditorView.getInstance();
 	// Holds all types of documents
 	private static Document[] documents = new Document[4];
 		
@@ -34,7 +34,6 @@ class CommandsTest {
 	public static void initializeDocuments() {
 		String[] types  = {"bookTemplate", "reportTemplate", "articleTemplate", "letterTemplate"};
 		
-		editorView = LatexEditorView.getInstance();
 		documentManager = new DocumentManager();
 		versionsManager = new VersionsManager();
 		
@@ -42,7 +41,7 @@ class CommandsTest {
 		
 		for(int i = 0; i < documents.length; i++) {
 			Document document = documentManager.createDocument(types[i]);
-			versionsManager.setCurrentVersion(document);
+			editorView.setCurrentDocument(document);
 			documents[i] = document;
 			System.out.println(types[i]);
 		}

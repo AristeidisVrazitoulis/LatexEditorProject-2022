@@ -39,36 +39,8 @@ public class VersionsManager {
 		this.strategy = strategy;
 	}
 	
-	public void setCurrentVersion(Document document) {
-		latexEditorView.setCurrentDocument(document);
-	}
-	
-	public Document setPreviousVersion() {
-		return null;
-	}
-	
-	public void rollbackToPreviousVersion() {
-		
-	}
-
-	public String getType() {
-		return latexEditorView.getType();
-	}
-
-	public void saveContents() {
-		latexEditorView.saveContents();
-	}
-
-	public void saveToFile() {
-		latexEditorView.saveToFile();
-	}
-
-	public void loadFromFile() {
-		latexEditorView.loadFromFile();
-	}
 
 	public void enableStrategy() {
-		// TODO Auto-generated method stub
 		String strategyType = latexEditorView.getStrategy();
 		if(strategyType.equals("volatile") && strategy instanceof VolatileVersionsStrategy) {
 			enable();

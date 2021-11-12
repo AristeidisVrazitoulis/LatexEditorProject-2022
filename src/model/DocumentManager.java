@@ -1,37 +1,72 @@
 package model;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class DocumentManager {
 	private HashMap<String, Document> templates;
+	private String[] templateNames= {"reportTemplate","bookTemplate","articleTemplate","letterTemplate"};
 	
-	
+	private static DocumentManager instance = null; 
 	// This constructor is called once at the initialization of the app
 	public DocumentManager() {
 		templates = new HashMap<String, Document>();
-		
+		initializeTemplates();
+		initializeEmptyTemplate();
+	}
+	
+	public static DocumentManager getInstance() {
+		if(instance == null) {
+			instance = new DocumentManager();
+		}
+		return instance;
+	}
+	
+	public void initializeTemplates() {
+		for(int i=0;i<templateNames.length;i++) {
+			Document document = new Document();
+			document.setContents(getContents(templateNames[i]));
+			templates.put(templateNames[i], document);
+		}
+	}
+	
+	public void initializeEmptyTemplate() {
 		Document document = new Document();
-		document.setContents(getContents("reportTemplate"));
-		templates.put("reportTemplate", document);
-		
-		document = new Document();
-		document.setContents(getContents("bookTemplate"));
-		templates.put("bookTemplate", document);
-		
-		document = new Document();
-		document.setContents(getContents("articleTemplate"));
-		templates.put("articleTemplate", document);
-		
-		document = new Document();
-		document.setContents(getContents("letterTemplate"));
-		templates.put("letterTemplate", document);
-		
-		document = new Document();
 		templates.put("emptyTemplate", document);
+	}
+	
+	public String readDocument(String filename) {
+		String fileContents = "";
+		try {
+			Scanner scanner = new Scanner(new FileInputStream(filename));
+			while(scanner.hasNextLine()) {
+				fileContents = fileContents + scanner.nextLine() + "\n";
+			}
+			fileContents = fileContents.substring(0,fileContents.length()-1);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fileContents;
 	}
 	
 	public Document createDocument(String type) {
 		return templates.get(type).clone();
+	}
+	
+	// finds document type in relation to file contents
+	public String findDocumentTemplate(String fileContents) {
+		String fileHeader=fileContents.split("\n\n")[0].trim();
+		
+		for(int i=0;i<templateNames.length;i++) {
+			String templateHeader=getContents(templateNames[i]).split("\n\n")[0].trim();
+			if(templateHeader.equals(fileHeader)) {
+				return templateNames[i];
+			}
+		}
+		return "emptyTemplate";
 	}
 	
 	public String getContents(String type) {
