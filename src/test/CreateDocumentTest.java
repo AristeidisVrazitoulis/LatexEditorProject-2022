@@ -34,7 +34,7 @@ public class CreateDocumentTest {
 	@ValueSource(strings = {"bookTemplate", "reportTemplate", "articleTemplate", "letterTemplate"})
 	public final void testCreateDocument2(String type) {
 		Document document = documentManager.createDocument(type);
-		versionsManager.setCurrentVersion(document);
+		editorView.setCurrentDocument(document);
 		assertEquals(documentManager.getContents(type), document.getContents());
 		
 	}

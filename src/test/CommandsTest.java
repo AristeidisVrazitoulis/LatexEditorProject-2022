@@ -16,6 +16,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import controller.commands.CreateCommand;
 import controller.commands.EditCommand;
+import controller.commands.LoadCommand;
+import controller.commands.SaveCommand;
 import model.Document;
 import model.DocumentManager;
 import model.VersionsManager;
@@ -23,8 +25,8 @@ import view.LatexEditorView;
 
 class CommandsTest {
 	
-	private static DocumentManager documentManager;
-	private static VersionsManager versionsManager;
+	private static DocumentManager documentManager = DocumentManager.getInstance();
+	private static VersionsManager versionsManager = VersionsManager.getInstance();
 	private static LatexEditorView editorView=LatexEditorView.getInstance();
 	// Holds all types of documents
 	private static Document[] documents = new Document[4];
@@ -56,7 +58,7 @@ class CommandsTest {
 	public final void  testEditContent(int i) {
 		// Randomly choose book template for testing. Works for other types as well.
 		Document sampleDocument = documents[i];
-		versionsManager.setCurrentVersion(sampleDocument);
+		editorView.setCurrentDocument(sampleDocument);
 				
 		String smallChange = "this is a small change";
 		String actualOutput = sampleDocument.getContents() + smallChange;
@@ -80,7 +82,8 @@ class CommandsTest {
 		editorView.setFilename(filename);
 		
 		// execute load
-		versionsManager.loadFromFile();
+		LoadCommand loadDocument = new LoadCommand();
+		loadDocument.execute();
 				
 		assertEquals(editorView.getCurrentDocument().getContents(), readFileContents(filename));	
 		
@@ -95,12 +98,14 @@ class CommandsTest {
 		
 		// Book
 		Document book = documents[0];
-		versionsManager.setCurrentVersion(book);
+		editorView.setCurrentDocument(book);
 		
 		editorView.setFilename(filename);
 		
-		versionsManager.saveToFile();				
-		assertEquals(editorView.getCurrentDocument().getContents(), readFileContents(filename));	
+		SaveCommand saveCommand = new SaveCommand();
+		saveCommand.execute();
+		
+		assertEquals(book.getContents(), readFileContents(filename));	
 		
 	}
 	

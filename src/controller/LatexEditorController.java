@@ -34,4 +34,8 @@ public class LatexEditorController{
 	public void enact(String command) {
 		commands.get(command).execute();
 	}
+	
+	public Command getCommand(String commandName) {
+		return commands.get(commandName);
+	}
 }

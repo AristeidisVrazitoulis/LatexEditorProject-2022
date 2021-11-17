@@ -17,7 +17,7 @@ public class CommandFactory {
 
 	public Command createCommand(String type) {
 		if(type.equals("addLatex")) {
-			return new AddLatexCommand();
+			return AddLatexCommand.getInstance();
 		}
 		if(type.equals("changeVersionsStrategy")) {
 			return new ChangeVersionsStrategyCommand();

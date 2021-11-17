@@ -18,7 +18,7 @@ public class LoadCommand implements Command {
 		String fileContents=documentManager.readDocument(latexEditorView.getFilename());
 		latexEditorView.setCurrentDocument(new Document());
 		latexEditorView.getCurrentDocument().setContents(fileContents);
-		String type =documentManager.findDocumentTemplate(fileContents.trim());
+		String type = documentManager.findDocumentTemplate(fileContents.trim());
 		latexEditorView.setType(type);
 
 	}

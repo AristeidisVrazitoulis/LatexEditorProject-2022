@@ -81,12 +81,10 @@ public class VersionsManager {
 	}
 
 	public void  putVersion(Document document) {
-		// TODO Auto-generated method stub
 		strategy.putVersion(document);
 	}
 
 	public void rollback() {
-		// TODO Auto-generated method stub
 		if(isEnabled() == false) {
 			JOptionPane.showMessageDialog(null, "Strategy is not enabled", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -104,7 +102,6 @@ public class VersionsManager {
 	}
 
 	public VersionsStrategy getStrategy() {
-		// TODO Auto-generated method stub
 		return strategy;
 	}
 }

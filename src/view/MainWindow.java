@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTextPane;
 
+import controller.commands.AddLatexCommand;
 import model.Document;
 
 import javax.swing.JEditorPane;
@@ -27,62 +28,19 @@ public class MainWindow {
 	private LatexEditorView latexEditorView = LatexEditorView.getInstance();
 	
 	
-	// That method is called when user adds a commands. A predefined text.
+	// That method is called when user adds a command. A predefined text.
 	public void editContents(String type) {
 		String contents = editorPane.getText();
 		String before = contents.substring(0, editorPane.getCaretPosition());
 		String after = contents.substring(editorPane.getCaretPosition());
+		AddLatexCommand addCommandInstance =AddLatexCommand.getInstance();
 		
-		if(type.equals("chapter")) {
-			contents = before + "\n\\chapter{...}"+"\n"+after;
-		}
-		else if(type.equals("section")) {
-			contents = before + "\n\\section{...}"+"\n"+after;
-		}
-		else if(type.equals("subsection")) {
-			contents = before + "\n\\subsection{...}"+"\n"+after;
-		}
-		else if(type.equals("subsubsection")) {
-			contents = before + "\n\\subsubsection{...}"+"\n"+after;
-		}
-		else if(type.equals("enumerate")) {
-			contents = before + 
-					"\\begin{enumerate}\n"+
-					"\\item ...\n"+
-					"\\item ...\n"+
-					"\\end{enumerate}\n"+after;
-		}
-		else if(type.equals("itemize")) {
-			contents = before + 
-					"\\begin{itemize}\n"+
-					"\\item ...\n"+
-					"\\item ...\n"+
-					"\\end{itemize}\n"+after;
-		}
-		else if(type.equals("table")) {
-			contents = before + 
-					"\\begin{table}\n"+
-					"\\caption{....}\\label{...}\n"+
-					"\\begin{tabular}{|c|c|c|}\n"+
-					"\\hline\n"+
-					"... &...&...\\\\\n"+
-					"... &...&...\\\\\n"+
-					"... &...&...\\\\\n"+
-					"\\hline\n"+
-					"\\end{tabular}\n"+
-					"\\end{table}\n"+after;
-		}
-		else if(type.equals("figure")) {
-			contents = before + 
-					"\\begin{figure}\n"+
-					"\\includegraphics[width=...,height=...]{...}\n"+
-					"\\caption{....}\\label{...}\n"+
-					"\\end{figure}\n"+after;
-;
-		}
-		latexEditorView.setText(contents);
+		addCommandInstance.setBefore(before);
+		addCommandInstance.setAfter(after);
+		addCommandInstance.setType(type);
 		latexEditorView.getController().enact("addLatex");
-		editorPane.setText(contents);
+		
+		editorPane.setText(latexEditorView.getText());
 	}
 	/**
 	 * Launch the application.
