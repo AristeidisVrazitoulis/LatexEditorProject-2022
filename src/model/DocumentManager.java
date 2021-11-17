@@ -17,6 +17,7 @@ public class DocumentManager {
 		initializeEmptyTemplate();
 	}
 	
+	// Singleton Pattern
 	public static DocumentManager getInstance() {
 		if(instance == null) {
 			instance = new DocumentManager();
@@ -46,7 +47,6 @@ public class DocumentManager {
 			}
 			fileContents = fileContents.substring(0,fileContents.length()-1);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return fileContents;

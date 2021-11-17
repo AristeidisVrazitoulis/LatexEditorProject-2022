@@ -128,7 +128,6 @@ public class MainWindow {
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				latexEditorView.setText(editorPane.getText());
-				
 				latexEditorView.getController().enact("edit");
 			}
 		});
@@ -148,7 +147,6 @@ public class MainWindow {
 					String filename = filechooser.getSelectedFile().toString();
 					
 					latexEditorView.setFilename(filename);
-					//US-9
 					latexEditorView.getController().enact("load");
 					mnCommands.setEnabled(true);
 					addChapter.setEnabled(true);

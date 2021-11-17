@@ -55,18 +55,7 @@ public class LatexEditorView {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public void saveContents() {
-		// TODO Auto-generated method stub
-		if(versionsManager.isEnabled()) {
-			versionsManager.putVersion(currentDocument);
-			currentDocument.changeVersion();
-		}
-		currentDocument.setContents(text);
-	}
-	public void saveToFile() {
-		// TODO Auto-generated method stub
-		currentDocument.save(filename);
-	}
+	
 	public String getFilename() {
 		return filename;
 	}
