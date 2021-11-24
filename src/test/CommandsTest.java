@@ -35,10 +35,7 @@ class CommandsTest {
 	@BeforeAll
 	public static void initializeDocuments() {
 		String[] types  = {"bookTemplate", "reportTemplate", "articleTemplate", "letterTemplate"};
-		
-		documentManager = new DocumentManager();
-		versionsManager = new VersionsManager();
-		
+				
 		editorView.setVersionsManager(versionsManager);
 		
 		for(int i = 0; i < documents.length; i++) {

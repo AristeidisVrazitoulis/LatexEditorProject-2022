@@ -40,6 +40,7 @@ public class AddLatexCommand implements Command  {
 		"\\end{figure}\n"};
 	
 	public AddLatexCommand() {
+		// Initiate HashMap
 		for(int i=0;i<commandNames.length;i++) {
 			mapCommands.put(commandNames[i], commandValues[i]);
 		}
@@ -62,11 +63,16 @@ public class AddLatexCommand implements Command  {
 	public void setType(String type) {
 		this.type=type;
 	}
+	// Singleton pattern
 	public static AddLatexCommand getInstance() {
 		if(instance==null) {
 			instance=new AddLatexCommand();
 		}
 		return instance;
+	}
+	
+	public HashMap<String, String> getMap(){
+		return mapCommands;
 	}
 	
 }

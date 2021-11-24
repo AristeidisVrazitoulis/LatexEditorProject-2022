@@ -12,6 +12,9 @@ public class VersionsManager {
 	private VersionsStrategy strategy;
 	private LatexEditorView latexEditorView = LatexEditorView.getInstance();
 	
+	
+	private String statusRollback;
+	
 	private static VersionsManager instance = null;
 	
 	
@@ -64,7 +67,6 @@ public class VersionsManager {
 	}
 
 	public void changeStrategy() {
-		// TODO Auto-generated method stub
 		String strategyType = latexEditorView.getStrategy();
 		if(strategyType.equals("stable") && strategy instanceof VolatileVersionsStrategy) {
 			VersionsStrategy newStrategy = new StableVersionsStrategy();
@@ -84,7 +86,9 @@ public class VersionsManager {
 		strategy.putVersion(document);
 	}
 
-	public void rollback() {
+	// Model shouldn't be related to dialog messages. It should send to front end an according message
+	// How can it even be tested?
+	public void rollback2() {
 		if(isEnabled() == false) {
 			JOptionPane.showMessageDialog(null, "Strategy is not enabled", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -98,8 +102,33 @@ public class VersionsManager {
 				latexEditorView.setCurrentDocument(doc);
 			}
 		}
+	}
+	
+	// Signal to front end of the status
+	public void rollback() {
+		Document document = strategy.getVersion();
+		if(!isEnabled()) {
+			statusRollback = "disabled";
+		}	
+		else if(document == null) {
+			statusRollback = "none";
+		}else {
+			statusRollback = "ready";
+			strategy.removeVersion();
+			latexEditorView.setCurrentDocument(strategy.getVersion());
+		}
+		
 		
 	}
+	
+	public void setStatusRollback(String status) {
+		statusRollback = status; 
+	}
+	
+	public String getStatusRollback() {
+		return statusRollback;
+	}
+	
 
 	public VersionsStrategy getStrategy() {
 		return strategy;
