@@ -122,9 +122,7 @@ public class MainWindow {
 				int option = filechooser.showSaveDialog(null);
 				if(option == JFileChooser.APPROVE_OPTION) {
 					String filename = filechooser.getSelectedFile().toString();
-					if(filename.endsWith(".tex") == false) {
-						filename = filename+".tex";
-					}
+					
 					latexEditorView.setFilename(filename);
 					
 					latexEditorView.getController().enact("save");
@@ -271,15 +269,15 @@ public class MainWindow {
 				latexEditorView.getController().enact("rollbackToPreviousVersion");
 				VersionsManager versionsManager = latexEditorView.getVersionsManager();
 				
-//				// THIS CODE ADDED
-//				if(versionsManager.getStatusRollback().equals("disabled")) {
-//					JOptionPane.showMessageDialog(null, "Strategy is not enabled", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
-//					return;
-//				}else if(versionsManager.getStatusRollback().equals("none")) {
-//					JOptionPane.showMessageDialog(null, "No version available", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
-//					return;
-//				}
-//				// THIS CODE ADDED
+				// THIS CODE ADDED
+				if(versionsManager.getStatusRollback().equals("disabled")) {
+					JOptionPane.showMessageDialog(null, "Strategy is not enabled", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}else if(versionsManager.getStatusRollback().equals("none")) {
+					JOptionPane.showMessageDialog(null, "No version available", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+				// THIS CODE ADDED
 				
 				Document doc = latexEditorView.getCurrentDocument();
 				editorPane.setText(doc.getContents());

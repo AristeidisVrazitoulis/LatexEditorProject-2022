@@ -87,8 +87,7 @@ public class VersionsManager {
 	}
 
 	// Model shouldn't be related to dialog messages. It should send to front end an according message
-	// How can it even be tested?
-	public void rollback2() {
+	public void rollback() {
 		if(isEnabled() == false) {
 			JOptionPane.showMessageDialog(null, "Strategy is not enabled", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -104,22 +103,6 @@ public class VersionsManager {
 		}
 	}
 	
-	// Signal to front end of the status
-	public void rollback() {
-		Document document = strategy.getVersion();
-		if(!isEnabled()) {
-			statusRollback = "disabled";
-		}	
-		else if(document == null) {
-			statusRollback = "none";
-		}else {
-			statusRollback = "ready";
-			strategy.removeVersion();
-			latexEditorView.setCurrentDocument(strategy.getVersion());
-		}
-		
-		
-	}
 	
 	public void setStatusRollback(String status) {
 		statusRollback = status; 

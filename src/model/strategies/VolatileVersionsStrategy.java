@@ -41,5 +41,13 @@ public class VolatileVersionsStrategy implements VersionsStrategy {
 	public void removeVersion() {
 		history.remove(history.size() - 1);
 	}
+	
+	// Testing method
+	public void printDocuments() {
+		for(Document doc : history) {
+			System.out.println(doc.getContents());
+		}
+		
+	}
 
 }

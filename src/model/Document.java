@@ -21,7 +21,6 @@ public class Document {
 	
 	
 	public Document() {
-		// TODO Auto-generated constructor stub
 		this.contents = "";
 	}
 
@@ -35,15 +34,22 @@ public class Document {
 		this.contents = contents;
 	}
 
-
+	public void saveHTML(String filename) {
+		Converter converter = new Converter();
+		String htmlContents = converter.convertToHtml(contents);
+		String keepContents = contents;
+		contents = htmlContents;
+		System.out.println(htmlContents);
+		save(filename);
+		contents = keepContents;
+	}
+	
 	public void save(String filename) {
 		try {
 			PrintWriter printWriter = new PrintWriter(new FileOutputStream(filename));
-			
 			printWriter.write(contents);
 			printWriter.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -10,12 +10,13 @@ public class EditCommand implements Command {
 	public void execute() {
 		VersionsManager versionsManager = VersionsManager.getInstance();
 		Document currentDocument = LatexEditorView.getInstance().getCurrentDocument();
+		currentDocument.setContents(LatexEditorView.getInstance().getText());
 		// Edit Command, saves to RAM
 		if(versionsManager.isEnabled()) {
 			versionsManager.putVersion(currentDocument);
 			currentDocument.changeVersion();
 		}
-		currentDocument.setContents(LatexEditorView.getInstance().getText());
+		
 	
 	}
 

@@ -157,9 +157,8 @@ class VersionsManagerTest {
 		editorView.setCurrentDocument(document);
 		String firstContents = document.getContents();
 		editorView.setText(firstContents);
-		EditCommand editCommand = new EditCommand(); 
 		
-		
+				
 		// Create strategy
 		editorView.setStrategy("volatile");
 		
@@ -168,21 +167,18 @@ class VersionsManagerTest {
 		enableCommand.execute();
 		VersionsStrategy volatileStrategy = versionsFactory.createStrategy("volatileStrategy");
 		versionsManager.setStrategy(volatileStrategy);
+		
+		EditCommand editCommand = new EditCommand(); 
 		editCommand.execute();
 		//After enabling Versions we change text
 		document.setContents("test rollback");
 		editorView.setText(document.getContents());
 		
-		// Save 
-		
-		editCommand.execute();
 		
 		RollbackToPreviousVersionCommand rollbackCommand = new RollbackToPreviousVersionCommand();
 		rollbackCommand.execute();
 		document = editorView.getCurrentDocument();
-		assertEquals(firstContents, document.getContents());
-		
-		
+		assertEquals(firstContents, document.getContents());	
 		
 	}
 	

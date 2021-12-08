@@ -17,7 +17,7 @@ import view.LatexEditorView;
 
 class AddLatexCommandTest {
 
-	//private String[] commandNames = {"chapter","section","subsection","subsubsection","enumerate","itemize","table","figure"};
+
 	
 	private static DocumentManager documentManager = DocumentManager.getInstance();
 	private static LatexEditorView editorView=LatexEditorView.getInstance();
@@ -53,15 +53,15 @@ class AddLatexCommandTest {
 	@ParameterizedTest
 	@ValueSource(strings = {"section","subsection","subsubsection","enumerate","itemize","table","figure"})
 	public final void testArticleCommands(String commandName) {
-		Document book = documentManager.createDocument("articleTemplate");
-		editorView.setCurrentDocument(book);
+		Document article = documentManager.createDocument("articleTemplate");
+		editorView.setCurrentDocument(article);
 		int randomSplit = 20;
 		
 		AddLatexCommand addCommand = AddLatexCommand.getInstance();
 		mapCommands = addCommand.getMap();
 		
-		String before = book.getContents().substring(0,randomSplit);
-		String after = book.getContents().substring(randomSplit);
+		String before = article.getContents().substring(0,randomSplit);
+		String after = article.getContents().substring(randomSplit);
 		String targetText = before + mapCommands.get(commandName) + after;
 		
 		
