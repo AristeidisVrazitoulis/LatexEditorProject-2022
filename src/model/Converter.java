@@ -105,14 +105,14 @@ public class Converter {
 			contents+=texCommandstoHtml.get(fullCommand);
 			if(commandAndparameter[1]!="") {
 				contents+=commandAndparameter[1];
+				// add text
+				if(closeNow) {
+										
+					htmlElement= texCommandstoHtml.get(fullCommand);
+					contents += getClosingTag(htmlElement);;
+				}
 			}
-			// add text
-			if(closeNow) {
-				contents += commandAndparameter[1];
-				
-				htmlElement= texCommandstoHtml.get(fullCommand);
-				contents += getClosingTag(htmlElement);;
-			}
+			
 			
 			contents+="\n";
 		}	
