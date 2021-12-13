@@ -35,7 +35,4 @@ public class LatexEditorController{
 		commands.get(command).execute();
 	}
 	
-	public Command getCommand(String commandName) {
-		return commands.get(commandName);
-	}
 }

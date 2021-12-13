@@ -12,7 +12,6 @@ public class SaveCommand implements Command {
 		String filename = LatexEditorView.getInstance().getFilename();
 		
 		String suffix = filename.split("\\.")[1];
-		System.out.println(suffix);
 		if(suffix.equals("html"))
 		{
 			document.saveHTML(filename);

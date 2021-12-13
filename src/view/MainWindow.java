@@ -267,18 +267,6 @@ public class MainWindow {
 		mntmRollback.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				latexEditorView.getController().enact("rollbackToPreviousVersion");
-				VersionsManager versionsManager = latexEditorView.getVersionsManager();
-				
-				// THIS CODE ADDED
-				if(versionsManager.getStatusRollback().equals("disabled")) {
-					JOptionPane.showMessageDialog(null, "Strategy is not enabled", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
-					return;
-				}else if(versionsManager.getStatusRollback().equals("none")) {
-					JOptionPane.showMessageDialog(null, "No version available", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
-					return;
-				}
-				// THIS CODE ADDED
-				
 				Document doc = latexEditorView.getCurrentDocument();
 				editorPane.setText(doc.getContents());
 			}
